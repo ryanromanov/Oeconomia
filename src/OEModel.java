@@ -1,19 +1,22 @@
-public class OEModel {
+class OEModel {
     // Here is where we declare the class variables
 
-    float principle;
-    float interestRate;
-    float time;
-    double amount;
-    float n; // number of times interest rate is compounded per year
+    private boolean exitProgram;
+
+    private float principle;
+    private float interestRate;
+    private float time;
+    private double amount;
+    private float n; // number of times interest rate is compounded per year
 
 
-    public void OEModel() {
+    OEModel() {
         principle = 0;
         interestRate = 0;
         time = 0;
         amount = 0;
         n = 0;
+        exitProgram = false;
     }
 
 
@@ -27,6 +30,9 @@ public class OEModel {
         return tempAmount;
     }
 
+    public boolean getExitProgram() {
+        return exitProgram;
+    }
     public float getPrinciple() {
         return principle;
     }
@@ -45,6 +51,9 @@ public class OEModel {
 
     public float getN() {
         return n;
+    }
+    public void setExitProgram(boolean e) {
+        exitProgram = e;
     }
     public void setPrinciple(float p){
         principle = p;
