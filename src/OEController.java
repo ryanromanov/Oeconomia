@@ -24,9 +24,25 @@ class OEController implements Scriver, Leger {
         print("*************Oeconomia**************");
         getValidPValue();
         getValidInterestRate();
-
+        getValidTime();
 
     }
+
+    private void getValidTime() {
+        String tempTime;
+        print("Enter a period of time in years.");
+        print("(Use decimal notation for non-whole years)");
+        print("t = ");
+        tempTime = read();
+        while(!checkForValidFloat(tempTime)) {
+            print("Invalid period of time entered. Please enter a valid number.");
+            print("(Use decimal notation for non-whole years)");
+            print("t = ");
+            tempTime = read();
+        }
+        Model.setTime(convertToFloat(tempTime));
+    }
+
 
     private void getValidInterestRate() {
         String tempInterestRate;
@@ -43,14 +59,6 @@ class OEController implements Scriver, Leger {
         Model.setInterestRate(convertToFloat(tempInterestRate));
     }
 
-    private float convertToFloat(String stringToConvertToFloat) {
-        return Float.parseFloat(stringToConvertToFloat);
-    }
-
-    private boolean checkForValidFloat(String p) {
-        return p.matches("[+]?[0-9]*\\.?[0-9]+");
-    }
-
     private void getValidPValue() {
         String tempP;
         print("Enter principle amount: ");
@@ -62,6 +70,14 @@ class OEController implements Scriver, Leger {
             tempP = read();
         }
         Model.setPrinciple(convertToFloat(tempP));
+    }
+
+    private float convertToFloat(String stringToConvertToFloat) {
+        return Float.parseFloat(stringToConvertToFloat);
+    }
+
+    private boolean checkForValidFloat(String p) {
+        return p.matches("[+]?[0-9]*\\.?[0-9]+");
     }
 
     @Override
