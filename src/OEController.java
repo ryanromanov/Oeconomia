@@ -23,21 +23,45 @@ class OEController implements Scriver, Leger {
         print("************************************");
         print("*************Oeconomia**************");
         getValidPValue();
-
+        getValidInterestRate();
 
 
     }
 
+    private void getValidInterestRate() {
+        String tempInterestRate;
+        print("Enter interest rate in decimal format");
+        print("(e.g., .02 for 2%)");
+        print("r = ");
+        tempInterestRate = read();
+        while(!checkForValidFloat(tempInterestRate)) {
+            print("Invalid interest rate entered. Please enter a valid number.");
+            print("(e.g., .02 for 2%)");
+            print("r = ");
+            tempInterestRate = read();
+        }
+        Model.setInterestRate(convertToFloat(tempInterestRate));
+    }
+
+    private float convertToFloat(String stringToConvertToFloat) {
+        return Float.parseFloat(stringToConvertToFloat);
+    }
+
+    private boolean checkForValidFloat(String p) {
+        return p.matches("[+]?[0-9]*\\.?[0-9]+");
+    }
+
     private void getValidPValue() {
-        String pTemp;
+        String tempP;
         print("Enter principle amount: ");
         print("p = ");
-        pTemp = read();
-        while (!pTemp.matches("[+]?[0-9]*\\.?[0-9]+")) {
-            print("**Invalid number entered. Please enter a valid princple amount.");
+        tempP = read();
+        while (!checkForValidFloat(tempP)) {
+            print("**Invalid number entered. Please enter a valid principle amount.");
             print("p = ");
-            pTemp = read();
+            tempP = read();
         }
+        Model.setPrinciple(convertToFloat(tempP));
     }
 
     @Override
