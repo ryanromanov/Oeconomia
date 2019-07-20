@@ -1,14 +1,19 @@
+import java.math.BigDecimal;
+
 class OEModel {
     // Here is where we declare the class variables
 
     private boolean exitProgram;
 
-    private float principle;
-    private float interestRate;
-    private float time;
+    private double principle;
+    private double interestRate;
+    private double time;
     private double amount;
-    private float n; // number of times interest rate is compounded per year
+    private int n; // number of times interest rate is compounded per year
 
+    private BigDecimal bAmount;
+    private BigDecimal bInterestRate;
+    private BigDecimal bprinciple;
 
     OEModel() {
         principle = 0;
@@ -16,16 +21,25 @@ class OEModel {
         time = 0;
         amount = 0;
         n = 0;
+
+        bAmount = new BigDecimal("0");
+        bInterestRate = new BigDecimal("0");
+        bprinciple = new BigDecimal("0");
+
+
         exitProgram = false;
     }
 
 
-    public double calculateAmount() {
-        double tempAmount;
-        double rn = 1 + (interestRate / n);
-        double nt = n*time;
+    public BigDecimal calculateAmount() {
 
-        tempAmount = principle * Math.pow(rn, nt);
+        BigDecimal tempAmount;
+        BigDecimal TempAmountBigDecimal;
+        BigDecimal rn =  new BigDecimal(1 + (interestRate / n));
+        int nt = (int) (n*time);
+        bprinciple =  new BigDecimal(principle);
+
+        tempAmount = new BigDecimal(bprinciple.multiply(rn.pow(nt));
 
         return tempAmount;
     }
@@ -33,15 +47,15 @@ class OEModel {
     public boolean getExitProgram() {
         return exitProgram;
     }
-    public float getPrinciple() {
+    public double getPrinciple() {
         return principle;
     }
 
-    public float getInterestRate() {
+    public double getInterestRate() {
         return interestRate;
     }
 
-    public float getTime() {
+    public double getTime() {
         return time;
     }
 
@@ -49,25 +63,25 @@ class OEModel {
         return amount;
     }
 
-    public float getN() {
+    public int getN() {
         return n;
     }
     public void setExitProgram(boolean e) {
         exitProgram = e;
     }
-    public void setPrinciple(float p){
+    public void setPrinciple(double p){
         principle = p;
     }
-    public void setInterestRate(float i) {
+    public void setInterestRate(double i) {
         interestRate = i;
     }
-    public void setTime(float t) {
+    public void setTime(double t) {
         time = t;
     }
     public void setAmount(double a) {
         amount = a;
     }
-    public void setN(float passedN) {
+    public void setN(int passedN) {
         n = passedN;
     }
 

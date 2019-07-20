@@ -15,7 +15,12 @@ public class Oeconomia implements Scriver {
 
 
     @Override
-    public void print(Object line) {
+    public void printLine(Object line) {
         System.out.println(line.toString());
+    }
+
+    @Override
+    public void print(Object line) {
+        System.out.print(line.toString());
     }
 }

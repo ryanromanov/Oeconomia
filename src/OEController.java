@@ -19,70 +19,110 @@ class OEController implements Scriver, Leger {
 
 
     public void printMenu() {
-        print("************************************");
-        print("************************************");
-        print("*************Oeconomia**************");
-        getValidPValue();
+        String menuInput;
+        printLine("************************************");
+        printLine("************************************");
+        printLine("*************Oeconomia**************");
+        getValidPrincipleAmount();
         getValidInterestRate();
         getValidTime();
+        getValidNValue();
+        printLine("Do you want to calculate the amount?");
+        printLine("(Please enter \"y\" or \"n\")");
+        menuInput = read();
+        while (!(menuInput.equals("y") || menuInput.equals("n"))) {
+            printLine("Error: Please enter either \"y\" or \"n\".");
+            menuInput = read();
+        }
+        if (menuInput.equals("y")) {
+            printLine("Amount after calculation: " + Model.calculateAmount());
+        }
+        else {
 
+        }
     }
+
+    private void getValidNValue() {
+        String tempNValue;
+        printLine("Enter the number of times interest rate is calculated per Time value.");
+        printLine("(Only integer values are allowed)");
+        print("n = ");
+        tempNValue = read();
+        while(!checkForValidDouble(tempNValue)) {
+            printLine("Invalid n value. Please enter a valid number.");
+            printLine("(Only integer values are allowed)");
+            print("n = ");
+            tempNValue = read();
+        }
+        Model.setN(convertToInt(tempNValue));
+    }
+
+
 
     private void getValidTime() {
         String tempTime;
-        print("Enter a period of time in years.");
-        print("(Use decimal notation for non-whole years)");
+        printLine("Enter a period of time in years.");
+        printLine("(Use decimal notation for non-whole years)");
         print("t = ");
         tempTime = read();
-        while(!checkForValidFloat(tempTime)) {
-            print("Invalid period of time entered. Please enter a valid number.");
-            print("(Use decimal notation for non-whole years)");
+        while(!checkForValidDouble(tempTime)) {
+            printLine("Invalid period of time entered. Please enter a valid number.");
+            printLine("(Use decimal notation for non-whole years)");
             print("t = ");
             tempTime = read();
         }
-        Model.setTime(convertToFloat(tempTime));
+        Model.setTime(convertToDouble(tempTime));
     }
 
 
     private void getValidInterestRate() {
         String tempInterestRate;
-        print("Enter interest rate in decimal format");
-        print("(e.g., .02 for 2%)");
+        printLine("Enter interest rate in decimal format");
+        printLine("(e.g., .02 for 2%)");
         print("r = ");
         tempInterestRate = read();
-        while(!checkForValidFloat(tempInterestRate)) {
-            print("Invalid interest rate entered. Please enter a valid number.");
-            print("(e.g., .02 for 2%)");
+        while(!checkForValidDouble(tempInterestRate)) {
+            printLine("Invalid interest rate entered. Please enter a valid number.");
+            printLine("(e.g., .02 for 2%)");
             print("r = ");
             tempInterestRate = read();
         }
-        Model.setInterestRate(convertToFloat(tempInterestRate));
+        Model.setInterestRate(convertToDouble(tempInterestRate));
     }
 
-    private void getValidPValue() {
+    private void getValidPrincipleAmount() {
         String tempP;
-        print("Enter principle amount: ");
-        print("p = ");
+        printLine("Enter principle amount: ");
+        printLine("p = ");
         tempP = read();
-        while (!checkForValidFloat(tempP)) {
-            print("**Invalid number entered. Please enter a valid principle amount.");
+        while (!checkForValidDouble(tempP)) {
+            printLine("**Invalid number entered. Please enter a valid principle amount.");
             print("p = ");
             tempP = read();
         }
-        Model.setPrinciple(convertToFloat(tempP));
+        Model.setPrinciple(convertToDouble(tempP));
     }
 
-    private float convertToFloat(String stringToConvertToFloat) {
-        return Float.parseFloat(stringToConvertToFloat);
+    private double convertToDouble(String stringToConvertToDouble) {
+        return Double.parseDouble(stringToConvertToDouble);
     }
 
-    private boolean checkForValidFloat(String p) {
+    private int convertToInt(String tempNValue) {
+        return Integer.parseInt(tempNValue);
+    }
+
+    private boolean checkForValidDouble(String p) {
         return p.matches("[+]?[0-9]*\\.?[0-9]+");
     }
 
     @Override
-    public void print(Object line) {
+    public void printLine(Object line) {
         System.out.println(line.toString());
+    }
+
+    @Override
+    public void print(Object line) {
+        System.out.print(line.toString());
     }
 
 
@@ -92,7 +132,7 @@ class OEController implements Scriver, Leger {
         try {
             InputString = bufferedInput.readLine();
         } catch (IOException e) {
-            print("**Error in read() method in OEController's Leger");
+            printLine("**Error in read() method in OEController's Leger");
             e.printStackTrace();
         }
         return InputString;
