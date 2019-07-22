@@ -5,49 +5,47 @@ class OEModel {
 
     private boolean exitProgram;
 
-    private double principle;
+//    private double principle;
     private double interestRate;
     private double time;
-    private double amount;
+//    private double amount;
     private int n; // number of times interest rate is compounded per year
 
-    private BigDecimal bAmount;
-    private BigDecimal bInterestRate;
-    private BigDecimal bprinciple;
+    private BigDecimal amount;
+//    private BigDecimal interestRate;
+    private BigDecimal principle;
 
     OEModel() {
-        principle = 0;
+//        principle = 0;
         interestRate = 0;
         time = 0;
-        amount = 0;
+//        amount = 0;
         n = 0;
 
-        bAmount = new BigDecimal("0");
-        bInterestRate = new BigDecimal("0");
-        bprinciple = new BigDecimal("0");
+        amount = new BigDecimal("0");
+//        bInterestRate = new BigDecimal("0");
+        principle = new BigDecimal("0");
 
 
         exitProgram = false;
     }
 
 
-    public BigDecimal calculateAmount() {
+    BigDecimal calculateAmount() {
 
         BigDecimal tempAmount;
-        BigDecimal TempAmountBigDecimal;
-        BigDecimal rn =  new BigDecimal(1 + (interestRate / n));
+        BigDecimal RatePerUnitTime =  new BigDecimal(1 + (interestRate / n));
         int nt = (int) (n*time);
-        bprinciple =  new BigDecimal(principle);
 
-        tempAmount = new BigDecimal(bprinciple.multiply(rn.pow(nt));
+        tempAmount = principle.multiply(RatePerUnitTime.pow(nt));
 
         return tempAmount;
     }
 
-    public boolean getExitProgram() {
+    boolean getExitProgram() {
         return exitProgram;
     }
-    public double getPrinciple() {
+    public BigDecimal getPrinciple() {
         return principle;
     }
 
@@ -59,7 +57,7 @@ class OEModel {
         return time;
     }
 
-    public double getAmount() {
+    public BigDecimal getAmount() {
         return amount;
     }
 
@@ -69,19 +67,19 @@ class OEModel {
     public void setExitProgram(boolean e) {
         exitProgram = e;
     }
-    public void setPrinciple(double p){
-        principle = p;
+    void setPrinciple(double p){
+        principle = BigDecimal.valueOf(p);
     }
-    public void setInterestRate(double i) {
+    void setInterestRate(double i) {
         interestRate = i;
     }
-    public void setTime(double t) {
+    void setTime(double t) {
         time = t;
     }
     public void setAmount(double a) {
-        amount = a;
+        amount = BigDecimal.valueOf(a);
     }
-    public void setN(int passedN) {
+    void setN(int passedN) {
         n = passedN;
     }
 
