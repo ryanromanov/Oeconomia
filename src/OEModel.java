@@ -1,4 +1,6 @@
 import java.math.BigDecimal;
+import java.text.NumberFormat;
+import java.util.Locale;
 
 class OEModel {
     // Here is where we declare the class variables
@@ -15,6 +17,8 @@ class OEModel {
 //    private BigDecimal interestRate;
     private BigDecimal principle;
 
+    private NumberFormat CurrencyFormat;
+
     OEModel() {
 //        principle = 0;
         interestRate = 0;
@@ -26,6 +30,8 @@ class OEModel {
 //        bInterestRate = new BigDecimal("0");
         principle = new BigDecimal("0");
 
+        //set currency format to US by default
+        CurrencyFormat = NumberFormat.getCurrencyInstance(Locale.US);
 
         exitProgram = false;
     }
@@ -64,6 +70,11 @@ class OEModel {
     public int getN() {
         return n;
     }
+
+    public NumberFormat getCurrencyFormat() {
+        return CurrencyFormat;
+    }
+
     public void setExitProgram(boolean e) {
         exitProgram = e;
     }
@@ -84,6 +95,9 @@ class OEModel {
     }
 
 
+    void setCurrencyFormat (Locale l) {
+        CurrencyFormat = NumberFormat.getCurrencyInstance(l);
+    }
 
 
 }
